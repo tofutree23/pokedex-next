@@ -1,12 +1,18 @@
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Header from '@/components/Header'
 import Banner from '@/components/Banner'
+import SmallCard, { SmallCardProps } from '@/components/SmallCard'
+import MediumCard, { MediumCardProps } from '@/components/MediumCard'
 
-export default function App() {
+interface AppPrpos {
+  exploreData: SmallCardProps[]
+  cardData: MediumCardProps[]
+}
+
+export default function App({ exploreData, cardData }: AppPrpos) {
   return (
-    <div
-    // className='flex flex-col items-center justify-center min-h-screen py-2'
-    >
+    <div>
       <Head>
         <title>Reveal BNB</title>
       </Head>
@@ -14,6 +20,49 @@ export default function App() {
       <Header />
       {/* Banner */}
       <Banner />
+
+      {/* Cards... */}
+      <main className='max-w-7xl mx-auto px-8 sm:px-16'>
+        <section className='pt-6'>
+          <h2 className='text-4xl font-semibold'>Explore Nearby</h2>
+          {/* Pull data from server (SSR) */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            {exploreData.map(({ img, location, distance }, index) => (
+              <SmallCard
+                key={`${location}-${index}`}
+                img={img}
+                location={location}
+                distance={distance}
+              />
+            ))}
+          </div>
+        </section>
+        <section>
+          <h2 className='text-4xl font-semibold py-8'>Live Anywhere</h2>
+          <div>
+            {cardData.map(({ img, title }, index) => (
+              <MediumCard key={`${title}_${index}`} img={img} title={title} />
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { result: exploreData } = await fetch(
+    'http://localhost:3000/api/v1/explorer'
+  ).then((res) => res.json())
+
+  const { result: cardData } = await fetch(
+    'http://localhost:3000/api/v1/card'
+  ).then((res) => res.json())
+
+  return {
+    props: {
+      exploreData,
+      cardData,
+    },
+  }
 }

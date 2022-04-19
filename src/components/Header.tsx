@@ -1,12 +1,24 @@
 import Image from 'next/image'
-import { SearchIcon, GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/solid'
+import {
+  SearchIcon,
+  GlobeAltIcon,
+  MenuIcon,
+  UserCircleIcon,
+  UsersIcon,
+} from '@heroicons/react/solid'
 
 export default function Header() {
   return (
     <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
       {/* Left section */}
       <div className='relative flex items-center h-10 cursor-pointer my-auto'>
-        <Image src='/image/Airbnb_Logo.png' alt='logo' layout='fill' objectFit='contain' objectPosition='left' />
+        <Image
+          src='/image/Airbnb_Logo.png'
+          alt='logo'
+          layout='fill'
+          objectFit='contain'
+          objectPosition='left'
+        />
       </div>
       {/* Middle section */}
       <div className='flex items-center md:border-2 rounded-full py-2 md:shadow-sm'>
