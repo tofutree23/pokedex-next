@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import Banner from '@/components/Banner'
 import SmallCard, { SmallCardProps } from '@/components/SmallCard'
 import MediumCard, { MediumCardProps } from '@/components/MediumCard'
+import LargeCard from '@/components/LargeCard'
 
 interface AppPrpos {
   exploreData: SmallCardProps[]
@@ -45,7 +46,12 @@ export default function App({ exploreData, cardData }: AppPrpos) {
             ))}
           </div>
         </section>
-        <section></section>
+        <LargeCard
+          img='https://images.unsplash.com/photo-1485216983937-749292830fcf'
+          description='Wishlists created by Revealbnb'
+          title='The Greatest Outdoor'
+          buttonText='Get inspired'
+        />
       </main>
     </div>
   )
