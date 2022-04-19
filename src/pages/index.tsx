@@ -5,6 +5,7 @@ import Banner from '@/components/Banner'
 import SmallCard, { SmallCardProps } from '@/components/SmallCard'
 import MediumCard, { MediumCardProps } from '@/components/MediumCard'
 import LargeCard from '@/components/LargeCard'
+import Footer from '@/components/Footer'
 
 interface AppPrpos {
   exploreData: SmallCardProps[]
@@ -53,6 +54,7 @@ export default function App({ exploreData, cardData }: AppPrpos) {
           buttonText='Get inspired'
         />
       </main>
+      <Footer />
     </div>
   )
 }
