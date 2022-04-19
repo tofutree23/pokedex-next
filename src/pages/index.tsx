@@ -27,7 +27,7 @@ export default function App({ exploreData, cardData }: AppPrpos) {
           <h2 className='text-4xl font-semibold'>Explore Nearby</h2>
           {/* Pull data from server (SSR) */}
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {exploreData.map(({ img, location, distance }, index) => (
+            {exploreData?.map(({ img, location, distance }, index) => (
               <SmallCard
                 key={`${location}-${index}`}
                 img={img}
@@ -39,12 +39,13 @@ export default function App({ exploreData, cardData }: AppPrpos) {
         </section>
         <section>
           <h2 className='text-4xl font-semibold py-8'>Live Anywhere</h2>
-          <div>
-            {cardData.map(({ img, title }, index) => (
+          <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3'>
+            {cardData?.map(({ img, title }, index) => (
               <MediumCard key={`${title}_${index}`} img={img} title={title} />
             ))}
           </div>
         </section>
+        <section></section>
       </main>
     </div>
   )
