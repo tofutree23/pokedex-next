@@ -4,7 +4,7 @@ export default function Banner() {
   return (
     <div className='relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl-h[700px]'>
       <Image
-        src='https://images.unsplash.com/photo-1596941248238-0d49dcaa4263?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80'
+        src='https://images.unsplash.com/photo-1596941248238-0d49dcaa4263'
         alt='jeju-island'
         layout='fill'
         objectFit='cover'
