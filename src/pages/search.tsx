@@ -1,12 +1,27 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import InfoCard from '@/components/InfoCard'
 import { format } from 'date-fns'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-interface SearchProps {}
+export interface SearchResult {
+  img: string
+  location: string
+  title: string
+  description: string
+  star: number
+  price: string
+  total: string
+  long: number
+  lat: number
+}
+interface SearchProps {
+  searchResult: SearchResult[]
+}
 
-export default function Search({}: SearchProps) {
+export default function Search({ searchResult }: SearchProps) {
   const [range, setRange] = useState<string>('')
   const { query } = useRouter()
   const { location, startDate, endDate, numberOfGuest } = query
@@ -34,7 +49,10 @@ export default function Search({}: SearchProps) {
             300+ Stays - {range} - for {numberOfGuest} number of guests
           </p>
           <h1 className='text-3xl font-semibold mt-2 mb-6'>
-            Stays in {location}
+            Stays in{' '}
+            {(location as string).replace(/\b[a-z]/g, (word) =>
+              word.toLocaleUpperCase()
+            )}
           </h1>
           <div className='hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap'>
             <p className='button'>Cancellation Flexibility</p>
@@ -43,10 +61,25 @@ export default function Search({}: SearchProps) {
             <p className='button'>Rooms and Beds</p>
             <p className='button'>More filters</p>
           </div>
+          <div className='flex flex-col'>
+            {searchResult.map((item, index) => (
+              <InfoCard key={`info_card_${index}`} {...item} />
+            ))}
+          </div>
         </section>
         <section></section>
       </main>
       <Footer />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context
+
+  const searchResult = await fetch(
+    `http://localhost:3000/api/v1/search?location=${query.location}&startDate=${query.startDate}&endDate=${query.endDate}&numberOfGuest=${query.numberOfGuest}`
+  ).then((res) => res.json())
+
+  return { props: { searchResult } }
 }
