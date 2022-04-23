@@ -45,8 +45,8 @@ export default function Search({ searchResult }: SearchProps) {
       />
       <main className='flex'>
         <section className='flex-grow pt-15 px-6'>
-          <p className='text-xs'>
-            300+ Stays - {range} - for {numberOfGuest} number of guests
+          <p className='text-sm text-semibold py-6'>
+            300+ Stays - {range} - for {numberOfGuest} guest(s)
           </p>
           <h1 className='text-3xl font-semibold mt-2 mb-6'>
             Stays in{' '}
@@ -67,7 +67,6 @@ export default function Search({ searchResult }: SearchProps) {
             ))}
           </div>
         </section>
-        <section></section>
       </main>
       <Footer />
     </div>
@@ -75,10 +74,10 @@ export default function Search({ searchResult }: SearchProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query } = context
+  const { query, req } = context
 
   const searchResult = await fetch(
-    `http://localhost:3000/api/v1/search?location=${query.location}&startDate=${query.startDate}&endDate=${query.endDate}&numberOfGuest=${query.numberOfGuest}`
+    `http://${req.headers.host}/api/v1/search?location=${query.location}&startDate=${query.startDate}&endDate=${query.endDate}&numberOfGuest=${query.numberOfGuest}`
   ).then((res) => res.json())
 
   return { props: { searchResult } }

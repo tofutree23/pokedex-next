@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Header from '@/components/Header'
 import Banner from '@/components/Banner'
@@ -59,13 +59,13 @@ export default function App({ exploreData, cardData }: AppPrpos) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { result: exploreData } = await fetch(
-    'http://localhost:3000/api/v1/explorer'
+    `http://${req.headers.host}/api/v1/explorer`
   ).then((res) => res.json())
 
   const { result: cardData } = await fetch(
-    'http://localhost:3000/api/v1/card'
+    `http://${req.headers.host}/api/v1/card`
   ).then((res) => res.json())
 
   return {
